@@ -19,7 +19,7 @@
 /data/mongo/*
 /data/mysql/*
 /data/pqsql/*
-/data/www/*
+#/data/www/*
 /data/rabbit/*
 /backups/*
 
