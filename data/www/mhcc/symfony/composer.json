@@ -9,11 +9,13 @@
         "symfony/console": "*",
         "symfony/flex": "^1.1",
         "symfony/framework-bundle": "*",
+        "symfony/orm-pack": "^1.0",
         "symfony/yaml": "*"
     },
     "require-dev": {
         "symfony/debug-pack": "^1.0",
-        "symfony/dotenv": "*"
+        "symfony/dotenv": "*",
+        "symfony/maker-bundle": "^1.7"
     },
     "config": {
         "preferred-install": {
