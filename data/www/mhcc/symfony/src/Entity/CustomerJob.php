@@ -43,6 +43,12 @@ class CustomerJob
      */
     private $deliveryDate;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Service", inversedBy="customerJobs")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $service;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +110,18 @@ class CustomerJob
     public function setDeliveryDate(\DateTimeInterface $deliveryDate): self
     {
         $this->deliveryDate = $deliveryDate;
+
+        return $this;
+    }
+
+    public function getService(): ?Service
+    {
+        return $this->service;
+    }
+
+    public function setService(?Service $service): self
+    {
+        $this->service = $service;
 
         return $this;
     }
