@@ -21,6 +21,7 @@ class CustomerJobType extends AbstractType
                 'widget' => 'single_text',
                 'date_format' => 'yyyy-MM-dd H:i'
             ))
+            ->add('service')
         ;
     }
 

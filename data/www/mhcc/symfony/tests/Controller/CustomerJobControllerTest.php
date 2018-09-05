@@ -14,7 +14,8 @@ class CustomerJobControllerTest extends WebTestCase
           "city" => "Test city",
           "zipcode" => "12345",
           "description" => "Test discription",
-          "deliveryDate" => "2018-09-05 19:30"
+          "deliveryDate" => "2018-09-05 19:30",
+          "service" => "1"
         ];
 
         /** @var Client */
