@@ -2,18 +2,35 @@
 
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
+use App\Entity\CustomerJob;
+
+use App\Form\CustomerJobType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class MainController
+class CustomerJobController
 {
     /**
-    * @Route("/")
+    * @Route("/jobs", methods={"POST"})
     */
-    public function index()
+    public function newJob(Request $request, FormFactoryInterface $formFactory, EntityManagerInterface $em)
     {
-        return new Response(
-            '<html><body>Works!!</body></html>'
-        );
+        $data = json_decode($request->getContent(), true);
+
+        $newJob = new CustomerJob();
+        $form = $formFactory->create(CustomerJobType::class, $newJob);
+        $form->submit($data);
+
+        if (!$form->isSubmitted() && !$form->isValid()) {
+            return new JsonResponse("Not valid data");
+        }
+
+        $em->persist($newJob);
+        $em->flush();
+
+        return new JsonResponse("Works", 201);
     }
 }

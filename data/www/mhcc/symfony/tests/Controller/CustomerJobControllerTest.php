@@ -2,17 +2,43 @@
 
 namespace App\Tests\Controller;
 
-use GuzzleHttp\Client;
-use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\BrowserKit\Client;
 
-class CustomerJobControllerTest extends TestCase
+class CustomerJobControllerTest extends WebTestCase
 {
-
-    public function testPOST()
+    public function testPOSTnewJob()
     {
-        $client = new Client();
-        $response = $client->request('POST', "http://mhcc.loc/job");
+        $data = [
+          "title" => "Test title",
+          "city" => "Test city",
+          "zipcode" => "12345",
+          "description" => "Test discription",
+          "deliveryDate" => "2018-09-05 19:30"
+        ];
 
-        $this->assertEquals(201, $response->getStatusCode());
+        /** @var Client */
+        $client = static::createClient();
+
+        $postData = json_encode($data);
+
+        $client->request(
+            'POST',
+            '/jobs',
+            array(),
+            array(),
+            array(
+                'CONTENT_TYPE' => 'application/son',
+                'HTTP_ACCEPT' => 'application/json'
+            ),
+            $postData
+        );
+
+        $this->assertTrue($client->getResponse()->headers->contains(
+            'Content-Type',
+            'application/json'
+        ));
+
+        $this->assertEquals(201, $client->getResponse()->getStatusCode());
     }
 }
