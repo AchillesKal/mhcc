@@ -25,7 +25,7 @@ class CustomerJobControllerTest extends WebTestCase
 
         $client->request(
             'POST',
-            '/jobs',
+            '/api/jobs',
             array(),
             array(),
             array(

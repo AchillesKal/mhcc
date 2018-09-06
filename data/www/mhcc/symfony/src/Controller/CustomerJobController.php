@@ -10,11 +10,22 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Swagger\Annotations as SWG;
+use Nelmio\ApiDocBundle\Annotation\Model;
 
 class CustomerJobController
 {
     /**
-    * @Route("/jobs", methods={"POST"})
+    * @Route("/api/jobs", methods={"POST"})
+    * @SWG\Response(
+    *     response=200,
+    *     description="Returns a list of services",
+    *     @SWG\Schema(
+    *         type="array",
+    *         @SWG\Items(ref=@Model(type=CustomerJobType::class, groups={"full"}))
+    *     )
+    * )
+    * @SWG\Tag(name="Jobs")
     */
     public function newJob(Request $request, FormFactoryInterface $formFactory, EntityManagerInterface $em)
     {

@@ -52,7 +52,7 @@ class ServiceControllerTest extends WebTestCase
 
     public function testListServices()
     {
-        $this->client->request('GET', '/services');
+        $this->client->request('GET', '/api/services');
 
         $responseBody = json_decode($this->client->getResponse()->getContent(), true);
 

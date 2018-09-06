@@ -5,14 +5,24 @@ namespace App\Controller;
 use App\Entity\Service;
 use App\Repository\ServiceRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Swagger\Annotations as SWG;
+use Nelmio\ApiDocBundle\Annotation\Model;
 
 class ServiceController
 {
     /**
-    * @Route("/services", methods={"GET"})
-    */
+     * @Route("/api/services", methods={"GET"})
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns a list of services",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @SWG\Items(ref=@Model(type=Service::class, groups={"full"}))
+     *     )
+     * )
+     * @SWG\Tag(name="Services")
+     */
     public function listServices(ServiceRepository $serviceRepository)
     {
         $services = $serviceRepository->findAll();
