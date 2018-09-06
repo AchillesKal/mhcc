@@ -79,7 +79,7 @@ devilbox@php-7.0.20 in /shared/httpd/my-symfony $ composer install
 
 3. Setup database and fixtures.
 
-Navigate into the symfony installation dyrectory inside the PHP container.
+Navigate into the symfony installation directory inside the PHP container.
 
 ```
 cd /shared/httpd/mhcc/symfony
@@ -103,7 +103,7 @@ be available automatically by the bundled DNS server.
 If you **don't have** Auto DNS configured, you will need to add the following line to your
 host operating systems ``/etc/hosts`` file (or ``C:\Windows\System32\drivers\etc`` on Windows):
 
-/etc/hosts
+On your host machine in /etc/hosts
 ```
 127.0.0.1 mhcc.loc
 ```
@@ -117,9 +117,28 @@ Open your browser at http://mhcc.loc
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+1. Navigate into the symfony installation directory inside the PHP container.
 
+```
+cd /shared/httpd/mhcc/symfony
+```
 
+Manually create the var/data directory:
+```
+mkdir var/data
+```
+
+2. To create the testing database run:
+
+```
+php bin/console doctrine:database:create --env=test
+php bin/console doctrine:schema:create --env=test
+```
+
+3. To install all the test dependencies and execute the tests, run:
+```
+php bin/phpunit
+```
 
 ## License
 
