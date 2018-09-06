@@ -2,14 +2,19 @@
 
 namespace App\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\BrowserKit\Client;
+use App\Test\ApiTestCase;
 
-class CustomerJobControllerTest extends WebTestCase
+class CustomerJobControllerTest extends ApiTestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+        $this->createServices();
+    }
+
     public function testPOSTnewJob()
     {
-        $data = [
+        $testJob = [
           "title" => "Test title",
           "city" => "Test city",
           "zipcode" => "12345",
@@ -18,12 +23,8 @@ class CustomerJobControllerTest extends WebTestCase
           "service" => "1"
         ];
 
-        /** @var Client */
-        $client = static::createClient();
-
-        $postData = json_encode($data);
-
-        $client->request(
+        $testJobJson = json_encode($testJob);
+        $this->client->request(
             'POST',
             '/api/jobs',
             array(),
@@ -32,14 +33,14 @@ class CustomerJobControllerTest extends WebTestCase
                 'CONTENT_TYPE' => 'application/son',
                 'HTTP_ACCEPT' => 'application/json'
             ),
-            $postData
+            $testJobJson
         );
 
-        $this->assertTrue($client->getResponse()->headers->contains(
+        $this->assertTrue($this->client->getResponse()->headers->contains(
             'Content-Type',
             'application/json'
         ));
 
-        $this->assertEquals(201, $client->getResponse()->getStatusCode());
+        $this->assertEquals(201, $this->client->getResponse()->getStatusCode());
     }
 }

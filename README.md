@@ -111,7 +111,6 @@ On your host machine in /etc/hosts
 127.0.0.1 mhcc.loc
 ```
 
-
 5. Open your browser
 --------------------
 
