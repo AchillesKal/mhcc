@@ -9,6 +9,8 @@ Instruction on how to setup and use devilbox [here](https://devilbox.readthedocs
 
 This project also uses Symfony4.
 
+The symfony code lives data/www/mhcc/symfony directory.
+
 ### Installing devilbox
 
 1. Clone the repository.
