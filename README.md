@@ -11,7 +11,7 @@ This project also uses Symfony4.
 
 The symfony code lives data/www/mhcc/symfony directory.
 
-### Installing devilbox
+## Install project
 
 1. Clone the repository.
 
@@ -40,13 +40,14 @@ In .env there are only two variables that need to be adjusted:
 
 In most cases both values will be ``1000``.
 
+
 Run docker multi-container Docker application:
 ```
 docker-compose up
 ```
 
-Now devilbox should be up and running.
-Check out your http://localhost 
+Now devilbox should be up and running.  
+Check out your http://localhost  
 If you see the devlibox dashboard, you've just set up the development environment, congratulations!
 
 ### Setup Symfony
@@ -55,10 +56,10 @@ If you see the devlibox dashboard, you've just set up the development environmen
 --------------------------
 
 All work will be done inside the PHP container as it provides you with all required command line
-tools.
+tools.  
 
 Navigate to the Devilbox git directory and execute ``shell.sh`` (or ``shell.bat`` on Windows) to
-enter the running PHP container.
+enter the running PHP container.  
 
 ```
 ./shell.sh
