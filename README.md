@@ -1,87 +1,126 @@
 # MHCC
 
-One Paragraph of project description goes here
+This is a Symfony coding challenge project.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+This project ships with [devilbox](https://github.com/cytopia/devilbox) as a development environment.
+Instruction on how to setup and use devilbox [here](https://devilbox.readthedocs.io/en/latest/getting-started/install-the-devilbox.html)
 
-### Prerequisites
+This project also uses Symfony4.
 
-What things you need to install the software and how to install them
+### Installing devilbox
 
-```
-Give examples
-```
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+1. Clone the repository.
 
 ```
-Give the example
+git clone https://github.com/AchillesKal/mhcc.git
 ```
 
-And repeat
+2. Change directory.
 
 ```
-until finished
+cd mhcc
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+Create .env file.
+
+```
+cp env-example .env
+```
+
+Set uid and gid
+
+In .env there are only two variables that need to be adjusted:
+
+* ``NEW_UID``
+* ``NEW_GID``
+
+In most cases both values will be ``1000``.
+
+Run docker multi-container Docker application:
+```
+docker-compose up
+```
+
+Now devilbox should be up and running.
+Check out your http://localhost 
+If you see the devlibox dashboard, you've just set up the development environment, congratulations!
+
+### Setup Symfony
+
+1. Enter the PHP container
+--------------------------
+
+All work will be done inside the PHP container as it provides you with all required command line
+tools.
+
+Navigate to the Devilbox git directory and execute ``shell.sh`` (or ``shell.bat`` on Windows) to
+enter the running PHP container.
+
+```
+./shell.sh
+```
+
+2. Install Symfony Dependencies
+-------------------------------
+
+Navigate into the symfony installation dyrectory inside the PHP container.
+
+```
+devilbox@php-7.0.20 in /shared/httpd $  cd mhcc/symfony/  # /shared/httpd/mhcc/symfony/
+```
+
+Install dependencies with composer:
+
+```
+devilbox@php-7.0.20 in /shared/httpd/my-symfony $ composer install
+```
+
+3. Setup database and fixtures.
+
+Navigate into the symfony installation dyrectory inside the PHP container.
+
+```
+cd /shared/httpd/mhcc/symfony
+```
+
+And run:
+
+```
+php bin/console doctrine:database:create
+php bin/console doctrine:migrations:migrate
+php bin/console doctrine:fixtures:load
+```
+
+
+4. DNS record
+-------------
+
+If you **have** Auto DNS configured already, you can skip this section, because DNS entries will
+be available automatically by the bundled DNS server.
+
+If you **don't have** Auto DNS configured, you will need to add the following line to your
+host operating systems ``/etc/hosts`` file (or ``C:\Windows\System32\drivers\etc`` on Windows):
+
+/etc/hosts
+```
+127.0.0.1 mhcc.loc
+```
+
+
+5. Open your browser
+--------------------
+
+Open your browser at http://mhcc.loc
+
 
 ## Running the tests
 
 Explain how to run the automated tests for this system
 
-### Break down into end to end tests
 
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
