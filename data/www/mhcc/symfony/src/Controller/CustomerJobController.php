@@ -42,6 +42,6 @@ class CustomerJobController
         $em->persist($newJob);
         $em->flush();
 
-        return new JsonResponse("Works", 201);
+        return new JsonResponse("The job was successfully added.", 201);
     }
 }
