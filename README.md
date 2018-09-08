@@ -9,7 +9,7 @@ Instruction on how to setup and use devilbox [here](https://devilbox.readthedocs
 
 This project also uses Symfony4.
 
-The symfony code lives data/www/mhcc/symfony directory.
+The symfony code lives in data/www/mhcc/symfony directory.
 
 ## Install project
 
