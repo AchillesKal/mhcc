@@ -13,22 +13,18 @@ class ApiTestCase extends KernelTestCase
     private static $staticClient;
 
     protected $client;
-
-    public static function setUpBeforeClass()
+    
+    protected function setUp()
     {
         $kernel = static::bootKernel();
         self::$staticClient = $kernel->getContainer()->get('test.client');
-    }
-
-    protected function setUp()
-    {
         $this->client = self::$staticClient;
         $this->purgeDatabase();
     }
 
     private function purgeDatabase()
     {
-        $purger = new ORMPurger($this->getService('doctrine')->getManager());
+        $purger = new ORMPurger($this->getService('doctrine.orm.entity_manager'));
         $purger->purge();
     }
 

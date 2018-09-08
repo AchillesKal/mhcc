@@ -36,7 +36,7 @@ class CustomerJobController
         $form->submit($data);
 
         if (!$form->isSubmitted() && !$form->isValid()) {
-            return new JsonResponse("Not valid data");
+            return new JsonResponse("Not valid data", 400);
         }
 
         $em->persist($newJob);
