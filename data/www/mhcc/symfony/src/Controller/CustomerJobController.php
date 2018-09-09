@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Api\ApiProblem;
 use App\Entity\CustomerJob;
 
 use App\Form\CustomerJobType;
@@ -43,13 +44,14 @@ class CustomerJobController
         if ($form->isSubmitted() && !$form->isValid()) {
             $errors = $formErrorResolver->getFromErrors($form);
 
-            $data = [
-                'type' => 'validation_error',
-                'title' => 'There was a validation error',
-                'errors' => $errors
+            $apiProblem = new ApiProblem(
+                400,
+                'validation_error',
+                'There was a validation error'
+            );
+            $apiProblem->set('errors', $errors);
 
-            ];
-            $response = new JsonResponse($data, 400);
+            $response = new JsonResponse($apiProblem->toArray(), $apiProblem->getStatusCode());
             $response->headers->set('Content-Type', 'application/problem+json');
 
             return $response;
