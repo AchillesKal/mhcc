@@ -21,8 +21,9 @@ class CustomerJob
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Title should not be blank")
      * @Assert\Length(
-     *      min = 2,
+     *      min = 5,
      *      max = 50,
      *      minMessage = "Your title must be at least {{ limit }} characters long",
      *      maxMessage = "Your title cannot be longer than {{ limit }} characters"
@@ -32,27 +33,43 @@ class CustomerJob
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Zipcode should not be blank")
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     message="Your zipcode must be a number"
+     * )
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 5,
+     *      minMessage = "Your zipcode name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your zipcode name cannot be longer than {{ limit }} characters",
+     *      exactMessage = "Your zipcode should have exactly {{ limit }} characters",
+     * )
      */
     private $zipcode;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="The city should not be blank")
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="The description should not be blank")
      */
     private $description;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank(message="The delivery date should not be blank")
      */
     private $deliveryDate;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Service", inversedBy="customerJobs")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="The service should not be blank")
      */
     private $service;
 
