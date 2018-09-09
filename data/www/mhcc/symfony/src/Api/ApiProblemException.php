@@ -1,15 +1,22 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: achilleskal
- * Date: 9/9/18
- * Time: 9:22 PM
- */
-
 namespace App\Api;
 
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class ApiProblemException
+class ApiProblemException extends HttpException
 {
+    private $apiProblem;
 
+    public function __construct(ApiProblem $apiProblem, \Exception $previous = null, array $headers = array(), $code = 0)
+    {
+        $this->apiProblem = $apiProblem;
+        $statusCode = $apiProblem->getStatusCode();
+        $message = $apiProblem->getTitle();
+        parent::__construct($statusCode, $message, $previous, $headers, $code);
+    }
+
+    public function getApiProblem()
+    {
+        return $this->apiProblem;
+    }
 }

@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use App\Api\ApiProblem;
 use App\Entity\CustomerJob;
-
 use App\Form\CustomerJobType;
 use App\Utils\FormErrorResolver;
+use App\Api\ApiProblemException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -37,6 +37,10 @@ class CustomerJobController
     )
     {
         $data = json_decode($request->getContent(), true);
+        if ($data === null) {
+            $apiProblem = new ApiProblem(400, ApiProblem::TYPE_INVALID_REQUEST_BODY_FORMAT);
+            throw new ApiProblemException($apiProblem);
+        }
 
         $newJob = new CustomerJob();
         $form = $formFactory->create(CustomerJobType::class, $newJob);
@@ -46,8 +50,7 @@ class CustomerJobController
 
             $apiProblem = new ApiProblem(
                 400,
-                'validation_error',
-                'There was a validation error'
+                ApiProblem::TYPE_VALIDATION_ERROR
             );
             $apiProblem->set('errors', $errors);
 

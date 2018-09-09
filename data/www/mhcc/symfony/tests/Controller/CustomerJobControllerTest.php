@@ -245,4 +245,27 @@ class CustomerJobControllerTest extends ApiTestCase
         $this->assertEquals('application/problem+json', $response->headers->get('Content-Type'));
         $this->assertEquals(400, $response->getStatusCode());
     }
+
+    public function testInvalidJson()
+    {
+        $invalidJson = '{ "title": "Testtitle"zipcode": "test_zip", "description": "test_description", "deliveryDate": "2018-09-05 19:30", "service": "402020" }';
+        $this->client->request(
+            'POST',
+            '/api/jobs',
+            array(),
+            array(),
+            array(
+                'CONTENT_TYPE' => 'application/son',
+                'HTTP_ACCEPT' => 'application/json'
+            ),
+            $invalidJson
+        );
+
+        $response = $this->client->getResponse();
+        $responseBody = $response->getContent();
+        $jsonResponse = json_decode($responseBody, true);
+
+        $this->assertEquals('application/problem+json', $response->headers->get('Content-Type'));
+        $this->assertEquals(400, $response->getStatusCode());
+    }
 }
