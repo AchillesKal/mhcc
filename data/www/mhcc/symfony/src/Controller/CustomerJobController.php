@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\CustomerJob;
 
 use App\Form\CustomerJobType;
+use App\Utils\FormErrorResolver;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -27,16 +28,31 @@ class CustomerJobController
     * )
     * @SWG\Tag(name="Jobs")
     */
-    public function newJob(Request $request, FormFactoryInterface $formFactory, EntityManagerInterface $em)
+    public function newJob(
+        Request $request,
+        FormFactoryInterface $formFactory,
+        EntityManagerInterface $em,
+        FormErrorResolver $formErrorResolver
+    )
     {
         $data = json_decode($request->getContent(), true);
 
         $newJob = new CustomerJob();
         $form = $formFactory->create(CustomerJobType::class, $newJob);
         $form->submit($data);
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $formErrorResolver->getFromErrors($form);
 
-        if (!$form->isSubmitted() && !$form->isValid()) {
-            return new JsonResponse("Not valid data", 400);
+            $data = [
+                'type' => 'validation_error',
+                'title' => 'There was a validation error',
+                'errors' => $errors
+
+            ];
+            $response = new JsonResponse($data, 400);
+            $response->headers->set('Content-Type', 'application/problem+json');
+
+            return $response;
         }
 
         $em->persist($newJob);
