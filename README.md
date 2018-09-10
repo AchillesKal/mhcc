@@ -53,7 +53,6 @@ If you see the devlibox dashboard, you've just set up the development environmen
 ### Setup Symfony
 
 1. Enter the PHP container
---------------------------
 
 All work will be done inside the PHP container as it provides you with all required command line
 tools.  
@@ -66,7 +65,6 @@ enter the running PHP container.
 ```
 
 2. Install Symfony Dependencies
--------------------------------
 
 Navigate into the symfony installation dyrectory inside the PHP container.
 
@@ -98,8 +96,7 @@ php bin/console doctrine:fixtures:load
 
 
 4. DNS record
--------------
-
+ 
 If you **have** Auto DNS configured already, you can skip this section, because DNS entries will
 be available automatically by the bundled DNS server.
 
@@ -112,7 +109,6 @@ On your host machine in /etc/hosts
 ```
 
 5. Open your browser
---------------------
 
 Open your browser at http://mhcc.loc
 
