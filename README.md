@@ -13,13 +13,13 @@ The symfony code lives in data/www/mhcc/symfony directory.
 
 ## Install project
 
-1. Clone the repository.
+##### 1. Clone the repository.
 
 ```
 git clone https://github.com/AchillesKal/mhcc.git
 ```
 
-2. Change directory.
+##### 2. Change directory.
 
 ```
 cd mhcc
@@ -52,7 +52,7 @@ If you see the devlibox dashboard, you've just set up the development environmen
 
 ### Setup Symfony
 
-1. Enter the PHP container
+##### 1. Enter the PHP container
 
 All work will be done inside the PHP container as it provides you with all required command line
 tools.  
@@ -64,7 +64,7 @@ enter the running PHP container.
 ./shell.sh
 ```
 
-2. Install Symfony Dependencies
+##### 2. Install Symfony Dependencies
 
 Navigate into the symfony installation dyrectory inside the PHP container.
 
@@ -78,7 +78,7 @@ Install dependencies with composer:
 devilbox@php-7.0.20 in /shared/httpd/my-symfony $ composer install
 ```
 
-3. Setup database and fixtures.
+##### 3. Setup database and fixtures.
 
 Navigate into the symfony installation directory inside the PHP container.
 
@@ -95,7 +95,7 @@ php bin/console doctrine:fixtures:load
 ```
 
 
-4. DNS record
+##### 4. DNS record
  
 If you **have** Auto DNS configured already, you can skip this section, because DNS entries will
 be available automatically by the bundled DNS server.
@@ -108,14 +108,14 @@ On your host machine in /etc/hosts
 127.0.0.1 mhcc.loc
 ```
 
-5. Open your browser
+##### 5. Open your browser
 
 Open your browser at http://mhcc.loc
 
 
 ## Running the tests
 
-1. Navigate into the symfony installation directory inside the PHP container.
+##### 1. Navigate into the symfony installation directory inside the PHP container.
 
 ```
 cd /shared/httpd/mhcc/symfony
@@ -126,14 +126,14 @@ Manually create the var/data directory:
 mkdir var/data
 ```
 
-2. To create the testing database run:
+##### 2. To create the testing database run:
 
 ```
 php bin/console doctrine:database:create --env=test
 php bin/console doctrine:schema:create --env=test
 ```
 
-3. To install all the test dependencies and execute the tests, run:
+##### 3. To install all the test dependencies and execute the tests, run:
 ```
 php bin/phpunit
 ```
